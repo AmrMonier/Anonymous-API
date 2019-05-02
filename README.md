@@ -11,10 +11,12 @@ that allow you to get answers to your questions from your friend anonymously and
 composer install
 ```
 3- create a database with name "MessagesDB" or change the database name in .env file
+#
 4- run this command
 ```
 php artisan migrate
 ```
+#
 5- serve the application 
 ```
 php artisan serve
