@@ -2,55 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequest;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\MessageCollection;
 use App\Message;
 use App\Question;
 use Illuminate\Http\Request;
 use App\Http\Resources\MessageCollection as Messages;
+use App\Http\Resources\User as UserResource;
 use App\User;
 
 class User_Controller extends Controller
 {
-    /**
-     * @return Messages
-     */
-    public function index (){
-//        return new MessageCollection(Auth::user()->messages);
-        return new MessageCollection(User::find(1)->messages);
+    public function getUser(){
+
+        return new UserResource(Auth::user());
     }
 
     public function deleteMessage($number){
         Message::destroy($number);
-        return response(204);
-        // todo:: return the response no. of deletion
+        return response()->json(['msg' => 'Message Deleted Successfully','code' => 202],202);
     }
 
-    public function storeQuestion(Request $request){
-        $this->validate(
-            $request,
-            [
-                'content' => 'required|string|max:500'
-            ]
-        );
-        $question = Question::create($request->all);
-        // todo:: return the created response number
+    public function storeQuestion(StoreRequest $request){
+        $request->validated();
+        Question::create($request->all());
+        return response()->json(['msg' => 'Question Created Successfully','code' => 202],202);
 
     }
-    public function updateQuestion(Request $request, $number){
+
+    public function updateQuestion(StoreRequest $request, $number){
         $question = Question::findOrFail($number);
-        $this->validate(
-            $request,
-            [
-                'content' => 'required|string|max:500'
-            ]
-        );
-        $question->content = $request->get('content');
-        $question->save();
-        // todo:: return the updated response number and check for better method to update
+    //    $request->validated();
+//        $question->content = $request->content;
+//        $question->save();
+        return response()->json(['msg' => 'Question Updated Successfully','code' => 202,'data'=>$request],202);
     }
     public function deleteQuestion($number){
         Question::destroy($number);
-        // todo:: return the delete response number
+        return response()->json(['msg' => 'Question Deleted Successfully','code' => 202],202);
+
     }
 
     public function storeAnswer(){}

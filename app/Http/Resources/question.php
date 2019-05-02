@@ -16,9 +16,10 @@ class question extends JsonResource
     public function toArray($request)
     {
         return [
+            'no' => $this->id,
             'content' => $this->content,
             'answers' => AnswerResource::collection($this->answers),
-            'created_at' => $this->created_at
+            'created_at' =>  date('M d,Y h:i',strtotime($this->created_at))
         ];
     }
 }

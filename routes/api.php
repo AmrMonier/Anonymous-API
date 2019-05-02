@@ -17,15 +17,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::get(
-    '/user/{name}-{number}',
+    '/user/{slug}',
     [
         'as' => 'user.info',
         'uses' => 'Public_Controller@getUser'
     ]
 )
-    ->where('name','[\w]+')
-    ->where('number','[\d]');
+    ->where('slug','[\w\d\-]+');
+
 // Messages Routes
 Route::get(
     '/user/messages',
@@ -70,7 +71,8 @@ Route::put(
 Route::delete(
     '/question/{number}/delete',
     [
-        'as' => 'question.delete'
+        'as' => 'question.delete',
+        'uses' => 'User_Controller@deleteQuestion'
     ]
 )
     ->where('number','[\d]');
@@ -93,39 +95,13 @@ Route::delete(
 )
     ->where('number','[\d]');
 // Authentication Routes
-Route::post(
-    '/login',
-    [
-        'as' => 'login',
-        'uses' => 'Auth\LoginController@login'
-    ]
-);
-Route::post(
-    '/logout',
-    [
-        'as' => 'logout',
-        'uses' => 'Auth\LoginController@logout'
-    ]
-);
-Route::post(
-    '/register',
-    [
-        'as' => 'register',
-        'uses' => 'Auth\RegisterController@register'
-    ]
-);
-# Get the email from the user and send the link to him
-Route::post(
-    '/password/email',
-    [
-        'as' => 'password.email',
-        'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail'
-    ]
-);
-Route::post(
-    '/password/reset',
-    [
-        'as' => 'password.reset',
-        'uses' => 'Auth\ResetPasswordController@reset'
-    ]
-);
+
+Route::post('login', 'Authentication_Controller@login');
+Route::post('register', 'Authentication_Controller@register');
+Route::get('logout','Authentication_Controller@logout');
+
+Route::group(['middleware' => 'auth:api'], function() {
+    Route::post('details', 'Authentication_Controller@details');
+    Route::get('user-info', 'User_Controller@getUser');
+
+});

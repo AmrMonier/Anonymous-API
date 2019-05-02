@@ -3,10 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Message as MessageResource;
-use App\Http\Resources\question as QuestionResource;
 
-class User extends JsonResource
+class publicUser extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,10 +16,7 @@ class User extends JsonResource
     {
         return [
             'name' => $this->name,
-            'email' => $this->email,
             'slug' => $this->slug,
-            'messages' => MessageResource::collection($this->messages),
-            'questions' => QuestionResource::collection($this->questions)
         ];
     }
 }

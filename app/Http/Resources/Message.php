@@ -15,8 +15,9 @@ class Message extends JsonResource
     public function toArray($request)
     {
         return [
+            'no' => $this->id,
             'content' => $this->content,
-            'created_at' => $this->created_at
+            'created_at' =>  date('M d,Y h:i',strtotime($this->created_at))
         ];
     }
 }

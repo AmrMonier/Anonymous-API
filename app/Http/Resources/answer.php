@@ -17,7 +17,7 @@ class answer extends JsonResource
         return [
             'no' => $this->id,
             'answer' => $this->answer,
-            'created_at' => $this->created_at
+            'created_at' =>  date('M d,Y h:i',strtotime($this->created_at))
         ];
     }
 }
