@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Message extends JsonResource
+class PublicQuestion extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +15,9 @@ class Message extends JsonResource
     public function toArray($request)
     {
         return [
-            'number' => $this->id,
-            'content' => $this->content,
-            'created_at' =>  date('M d,Y h:i',strtotime($this->created_at))
+            'id' => $this->id,
+            'question' => $this->content,
+            'slug' => $this->slug
         ];
     }
 }

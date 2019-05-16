@@ -15,7 +15,7 @@ class answer extends JsonResource
     public function toArray($request)
     {
         return [
-            'no' => $this->id,
+            'number' => $this->id,
             'answer' => $this->answer,
             'created_at' =>  date('M d,Y h:i',strtotime($this->created_at))
         ];

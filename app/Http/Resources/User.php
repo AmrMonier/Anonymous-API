@@ -20,8 +20,8 @@ class User extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'slug' => $this->slug,
-            'messages' => MessageResource::collection($this->messages),
-            'questions' => QuestionResource::collection($this->questions)
+//            'messages' => MessageResource::collection($this->messages),
+//            'questions' => QuestionResource::collection($this->questions)
         ];
     }
 }

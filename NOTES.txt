@@ -1,0 +1,6 @@
+FOR laravel Passport remember to create the user since it expires after a while or cause
+you refreshed the DB -IDIOT-
+use this commands
+    - php artisan passport:client --personal
+    - php artisan passport:client --client
+don't ask what is the difference
